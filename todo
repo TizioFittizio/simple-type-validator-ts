@@ -1,0 +1,42 @@
+types:
+number
+boolean
+string
+object
+array
+map
+date
+
+con opzioni {
+    nullable: può essere null
+    optional: può essere undefined
+    strict: it will not be coerced
+}
+
+// Simple example
+const pokemonSchema = new Schema<T>({
+    name: String,
+    pokedexNumber: Number,
+    image: String({ Nullable })
+})
+
+
+const pokemonSchema = new Schema<T>({
+    name: String,
+    pokedexNumber: Number,
+    doesItEvolve: Boolean
+    lastSeen: Date,
+    stats: Object({ 
+        HP: Number,
+        Attack: Number,
+        Defense: Number
+    }),
+    type: Array(String),
+    image: String({ Nullable }),
+    catchRate: Number({ Optional }),
+    typesEffectivness: Map({
+        key: String,
+        value: Number
+    }, { Optional }),
+    hatchTime: Number({ Strict })
+})
