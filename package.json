@@ -1,0 +1,31 @@
+{
+  "name": "simple-type-validator-ts",
+  "version": "0.0.1",
+  "description": "Runtime schema types validation for typescript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && jest",
+    "start": "npm run build && node build/example/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TizioFittizio/simple-type-validator-ts.git"
+  },
+  "author": "Luca Campana",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TizioFittizio/simple-type-validator-ts/issues"
+  },
+  "homepage": "https://github.com/TizioFittizio/simple-type-validator-ts#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "eslint": "^7.2.0",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.0",
+    "typescript": "^3.9.5"
+  }
+}

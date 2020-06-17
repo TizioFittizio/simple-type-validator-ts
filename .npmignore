@@ -1,0 +1,17 @@
+lib/
+tests/
+build/
+.vscode/
+.circleci/
+coverage/
+example/
+helpers/
+.gitignore
+jest.config.js
+readme.md
+tslint.json
+tsconfig.json
+yarn-error.log
+yarn.lock
+.eslintrc
+todo
