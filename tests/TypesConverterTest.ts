@@ -1,3 +1,5 @@
+/* eslint-disable max-depth */
+/* eslint-disable complexity */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable no-extra-parens */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -29,6 +31,10 @@ export interface TypesConverterTestExpectedResults {
 }
 
 export type TypesConverterTestCallback = (x: any) => any;
+
+export const SAME = '!SAME!';
+
+export const ERROR = '!ERROR!';
 
 export class TypesConverterTest {
 
@@ -72,13 +78,25 @@ export class TypesConverterTest {
         for (const [ key, value ] of Object.entries(TypesConverterTest.TEST_VALUES)){
             const valueToTest = value;
             const expectedResult = (expectedResults as any)[key];
-            const result = callback(valueToTest);
-            if (result !== expectedResult) this.throw(expectedResult, result);
+            try {
+                const result = callback(valueToTest);
+                if (expectedResult === SAME){
+                    if (result !== valueToTest) this.throw(valueToTest, result);
+                }
+                else if (result !== expectedResult){
+                    this.throw(expectedResult, result);
+                }
+            }
+            catch (e){
+                if (expectedResult !== ERROR){
+                    this.throw(valueToTest, e);
+                }
+            }
         }
     }
 
     private throw(expected: string, result: string){
-        throw new Error(`Types converter test failed, expected: ${expected}, result: ${result}`);
+        throw new Error(`Types converter test failed, expected ${expected}, result: ${result}`);
     }
 
 }
