@@ -27,5 +27,8 @@
     "jest": "^26.0.1",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "simple-type-validator-ts": "^0.0.1"
   }
 }

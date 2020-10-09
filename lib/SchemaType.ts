@@ -1,4 +1,5 @@
-export type SchemaType = (options?: SchemaTypeOptions) => { error: string | null };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SchemaType = (options?: SchemaTypeOptions) => { result: any, error: string | null };
 
 export interface SchemaTypeOptions {
     Nullable?: Nullable;

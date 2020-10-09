@@ -13,15 +13,6 @@ export class Schema<T> {
         this.schemaObject = object;
     }
 
-    public static validateString(string: any, options?: SchemaTypeOptions)
-    : { string: String, validationError?: string } {
-        throw new Error('Not implemented');
-    }
-
-    public static validateStringOrThrow(string: any, options?: SchemaTypeOptions): string {
-        throw new Error('Not implemented');
-    }
-
     public validate(objectToValidate: any): { object: T, validationError?: string } {
         throw new Error('Not implemented');
     }
