@@ -7,6 +7,10 @@ export interface SchemaTypeOptions {
     Strict?: Strict;
 }
 
-export type Nullable = 'TypeValidatorNullable';
-export type Optional = 'TypeValidatorOptional';
-export type Strict = 'TypeValidatorStrict';
+type Nullable = 'TypeValidatorNullable';
+type Optional = 'TypeValidatorOptional';
+type Strict = 'TypeValidatorStrict';
+
+export const Nullable: Nullable = 'TypeValidatorNullable';
+export const Optional: Optional = 'TypeValidatorOptional';
+export const Strict: Strict = 'TypeValidatorStrict';

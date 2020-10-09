@@ -17,10 +17,10 @@ export class Schema<T> {
         throw new Error('Not implemented');
     }
 
-    public validateOrThrow(objectToValidate: any): objectToValidate is T {
+    public validateOrThrow(objectToValidate: any): T {
         const { object, validationError } = this.validate(objectToValidate);
         if (validationError) throw new Error(validationError);
-        return true;
+        return object;
     }
 
 }
