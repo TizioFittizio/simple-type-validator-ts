@@ -4,6 +4,8 @@
 /* eslint-disable no-extra-parens */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { SchemaType, SchemaTypeOptions } from '../lib/SchemaType';
+
 export interface TypesConverterTestExpectedResults {
     booleanTrue: any;
     booleanFalse: any;
@@ -32,9 +34,9 @@ export interface TypesConverterTestExpectedResults {
 
 export type TypesConverterTestCallback = (x: any) => any;
 
-export const SAME = '!SAME!';
+export const SAME = 'SAME';
 
-export const ERROR = '!ERROR!';
+export const ERROR = 'ERROR';
 
 export class TypesConverterTest {
 
@@ -66,37 +68,43 @@ export class TypesConverterTest {
 
     private readonly expectedResults: TypesConverterTestExpectedResults;
 
-    private readonly callback: TypesConverterTestCallback;
+    private readonly schemaType: SchemaType;
 
-    public constructor(expectedResults: TypesConverterTestExpectedResults, callback: TypesConverterTestCallback){
+    private readonly schemaTypeOptions: SchemaTypeOptions;
+
+    public constructor(
+        expectedResults: TypesConverterTestExpectedResults,
+        schemaType: SchemaType,
+        schemaTypeOptions: SchemaTypeOptions
+    ){
         this.expectedResults = expectedResults;
-        this.callback = callback;
+        this.schemaType = schemaType;
+        this.schemaTypeOptions = schemaTypeOptions;
     }
 
     public executeTest(){
-        const { expectedResults, callback } = this;
+        const { expectedResults, schemaType, schemaTypeOptions } = this;
         for (const [ key, value ] of Object.entries(TypesConverterTest.TEST_VALUES)){
             const valueToTest = value;
             const expectedResult = (expectedResults as any)[key];
-            try {
-                const result = callback(valueToTest);
-                if (expectedResult === SAME){
-                    if (result !== valueToTest) this.throw(valueToTest, result);
-                }
-                else if (result !== expectedResult){
-                    this.throw(expectedResult, result);
-                }
+            const output = schemaType(schemaTypeOptions)(valueToTest);
+            if (output.error){
+                if (expectedResult !== ERROR) this.throw(valueToTest, output.error, key);
             }
-            catch (e){
-                if (expectedResult !== ERROR){
-                    this.throw(valueToTest, e);
+            else {
+                if (expectedResult === SAME){
+                    if (output.result !== valueToTest) this.throw(valueToTest, output.result, key);
+                }
+                else if (output.result !== expectedResult){
+                    this.throw(expectedResult, output.result, key);
                 }
             }
         }
     }
 
-    private throw(expected: string, result: string){
-        throw new Error(`Types converter test failed, expected ${expected}, result: ${result}`);
+    private throw(expected: string, result: string, key: string){
+        throw new Error(`Types converter test failed with key ${key}\n
+Expected ${expected} ${typeof expected}, result: ${result} ${typeof result}`);
     }
 
 }

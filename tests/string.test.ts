@@ -18,15 +18,15 @@ it('should validate string with coercion allowed correctly', () => {
         stringDate: SAME,
         null: ERROR,
         undefined: ERROR,
-        infinity: ERROR,
-        minusInfinity: ERROR,
+        infinity: 'Infinity',
+        minusInfinity: '-Infinity',
         array: ERROR,
         object: ERROR,
         arrayOfArray: ERROR,
         arrayWith0: ERROR,
         arrayWith1: ERROR,
-        nan: ERROR
+        nan: 'NaN'
     };
-    const test = new TypesConverterTest(expectedResults, V.String);
+    const test = new TypesConverterTest(expectedResults, V.String, {});
     test.executeTest();
 });
